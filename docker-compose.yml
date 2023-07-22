@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  proxy:
+    driver: bridge
+
+services:
+  squid-proxy:
+    image: sameersbn/squid:latest
+    container_name: squid-proxy
+    ports:
+      - "3128:3128"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+      - ./passwdfile:/etc/squid/passwd
+      - ./cache:/var/spool/squid
+      - ./logs:/var/log/squid
+    networks:
+      - proxy
